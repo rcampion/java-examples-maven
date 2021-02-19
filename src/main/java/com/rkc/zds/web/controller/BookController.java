@@ -40,6 +40,68 @@ public class BookController {
 
 	@Autowired
 	CustomerBookService customerBookService;
+	
+	@RequestMapping(value = "/populate", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	private void populateBooks() {
+		BookDTO book1 = new BookDTO();
+		
+		book1.setTitle("Clean Code");
+		book1.setAuthor("Robert Cecil Martin");
+		book1.setCategory(1);
+		
+		book1 = bookService.saveBook(book1);
+		
+		BookDTO book2 = new BookDTO();
+		
+		book2.setTitle("Code Complete");
+		book2.setAuthor("Steve McConnell");
+		book2.setCategory(1);
+		
+		book2 = bookService.saveBook(book2);
+		
+		BookDTO book3 = new BookDTO();
+		
+		book3.setTitle("Refactoring");
+		book3.setAuthor("Martin Fowler, Kent Beck");
+		book3.setCategory(2);
+		
+		book3 = bookService.saveBook(book3);
+		
+		CustomerDTO customer1 = new CustomerDTO();
+		
+		customer1.setName("Richard Campion");
+		
+		customer1 = customerService.saveCustomer(customer1);
+		
+		CustomerDTO customer2 = new CustomerDTO();
+		
+		customer2.setName("Paul Fredette");
+		
+		customer2 = customerService.saveCustomer(customer2);
+		
+		CustomerBookDTO customerBook1 = new CustomerBookDTO();
+		
+		customerBook1.setBookId(book1.getId());
+		customerBook1.setCustomerId(customer1.getId());
+		
+		customerBookService.saveCustomerBook(customerBook1);
+		
+		CustomerBookDTO customerBook2 = new CustomerBookDTO();
+		
+		customerBook2.setBookId(book2.getId());
+		customerBook2.setCustomerId(customer1.getId());
+		
+		customerBookService.saveCustomerBook(customerBook2);
+		
+		CustomerBookDTO customerBook3 = new CustomerBookDTO();
+		
+		customerBook3.setBookId(book1.getId());
+		customerBook3.setCustomerId(customer2.getId());
+		
+		customerBookService.saveCustomerBook(customerBook3);
+		
+			
+	}
 
 //Book
 	@RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

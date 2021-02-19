@@ -19,15 +19,15 @@ public class BookDTO {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	
-	@Size(min = 0, max = 45)
-	@Column(name = "Title", nullable = true, length = 20)
+	@Size(min = 0, max = 100)
+	@Column(name = "Title", nullable = true, length = 100)
 	private String title;	
 
-	@Size(min = 0, max = 45)
-	@Column(name = "Author", nullable = true, length = 20)
+	@Size(min = 0, max = 100)
+	@Column(name = "Author", nullable = true, length = 100)
 	private String author;
 
-	@Size(min = 0, max = 45)
+	//@Size(min = 0, max = 45)
 	@Column(name = "Category", nullable = true)
 	private int category;
 	

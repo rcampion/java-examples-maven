@@ -36,13 +36,13 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
-	public CustomerDTO saveCustomer(CustomerDTO book) {
+	public CustomerDTO saveCustomer(CustomerDTO customer) {
 		// TODO Auto-generated method stub
-		return null;
+		return customerRepo.save(customer);
 	}
 
 	@Override
-	public void updateCustomer(CustomerDTO book) {
+	public void updateCustomer(CustomerDTO customer) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -29,7 +29,10 @@ import com.rkc.zds.dto.Address;
 
 @Configuration
 @ComponentScan(basePackages = { "com.rkc.zds" }, excludeFilters = { @ComponentScan.Filter(value = Controller.class, type = FilterType.ANNOTATION) })
-@EnableJpaRepositories(basePackages = { "com.rkc.zds" })
+@EnableJpaRepositories(basePackages = { "com.rkc.zds" },
+entityManagerFactoryRef = "booksEntityManager", 	    
+transactionManagerRef = "transactionManager"
+)
 @EnableTransactionManagement
 @EnableSpringDataWebSupport
 public class AppConfig {
@@ -54,7 +57,7 @@ public class AppConfig {
 		return dataSource;
 	}    
 
-    @Bean
+	@Bean(name = "booksEntityManager")
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource, JpaVendorAdapter jpaVendorAdapter) {
         LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
         factoryBean.setDataSource(dataSource());
@@ -69,7 +72,7 @@ public class AppConfig {
 		jpaProperties.put("hibernate.show_sql", Boolean.FALSE.toString());
 		
 		jpaProperties.put("hibernate.query.jpaql_strict_compliance", Boolean.FALSE.toString());
-		jpaProperties.put("hibernate.hbm2ddl.auto", "update");
+		jpaProperties.put("hibernate.hbm2ddl.auto", "create");
 		jpaProperties.put("driverClassName","com.mysql.jdbc.Driver");
 		jpaProperties.put("url","jdbc:mysql://localhost:3306/books?createDatabaseIfNotExist=true&serverTimezone=UTC&useLegacyDatetimeCode=false");
 		jpaProperties.put("userName" ,"book_user");

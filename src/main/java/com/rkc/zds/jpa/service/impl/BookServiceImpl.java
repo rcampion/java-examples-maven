@@ -37,8 +37,7 @@ public class BookServiceImpl implements BookService {
 
 	@Override
 	public BookDTO saveBook(BookDTO book) {
-		// TODO Auto-generated method stub
-		return null;
+		return bookRepo.save(book);
 	}
 
 	@Override
