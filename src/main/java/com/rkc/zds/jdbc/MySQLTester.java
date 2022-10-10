@@ -35,10 +35,10 @@ public class MySQLTester {
 
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/books", "book_user", "ChangeIt");
+			connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/auth?createDatabaseIfNotExist=true&serverTimezone=UTC&useLegacyDatetimeCode=false", "auth_user", "ChangeIt");
 			statement = connect.createStatement();
 
-			String sql = "SELECT * FROM book";
+			String sql = "SELECT * FROM Book";
 
 			resultSet = statement.executeQuery(sql);
 			while (resultSet.next()) {
@@ -94,14 +94,14 @@ public class MySQLTester {
 
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/books", "book_user", "ChangeIt");
+			connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/auth?createDatabaseIfNotExist=true&serverTimezone=UTC&useLegacyDatetimeCode=false", "auth_user", "ChangeIt");
 			statement = connect.createStatement();
 			list.clear();
 
 			String search = "efactor";
 			PreparedStatement ps = null;
 			
-			String sql = "SELECT * FROM book WHERE Title LIKE ?";
+			String sql = "SELECT * FROM Book WHERE Title LIKE ?";
 
 			ps = connect.prepareStatement(sql);
 			ps.setString(1, "%" + search + "%");
@@ -138,7 +138,7 @@ public class MySQLTester {
 		}
 		System.out.println(list);
 		
-		app.updateTest(list);
+		//app.updateTest(list);
 		
 	}
 
@@ -154,14 +154,14 @@ public class MySQLTester {
 			
 			try {
 				Class.forName("com.mysql.cj.jdbc.Driver");
-				connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/books", "book_user", "ChangeIt");
+				connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/auth?createDatabaseIfNotExist=true&serverTimezone=UTC&useLegacyDatetimeCode=false", "auth_user", "ChangeIt");
 				//statement = connect.createStatement();
 
 				int i = 0;
 				String title = entry.getTitle() + i;
 
 				
-				String sql = "UPDATE book SET Title = ? WHERE id = ?";
+				String sql = "UPDATE Book SET Title = ? WHERE id = ?";
 
 				ps = connect.prepareStatement(sql);
 				ps.setString(1, title);
