@@ -3,7 +3,7 @@ package com.rkc.zds.queue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-public class BlockingQueueUsage {
+public class LinkedBlockingQueueExample {
     public static void main(String[] args) {
         int BOUND = 10;
         int N_PRODUCERS = 4;
