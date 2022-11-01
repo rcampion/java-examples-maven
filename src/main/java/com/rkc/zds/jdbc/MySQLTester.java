@@ -15,7 +15,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import com.rkc.zds.dto.Book;
+import com.rkc.zds.enums.BookDto;
 import com.rkc.zds.enums.BookCategoryEnum;
 import com.rkc.zds.linkedlist.SinglyLinkedList;
 import com.rkc.zds.linkedlist.impl.SinglyLinkedListImpl;
@@ -30,7 +30,7 @@ public class MySQLTester {
 		Statement statement = null;
 		ResultSet resultSet = null;
 
-		List<Book> list = new ArrayList<Book>();
+		List<BookDto> list = new ArrayList<BookDto>();
 		SinglyLinkedList linkedList = new SinglyLinkedListImpl();
 
 		try {
@@ -42,7 +42,7 @@ public class MySQLTester {
 
 			resultSet = statement.executeQuery(sql);
 			while (resultSet.next()) {
-				Book dto = new Book();
+				BookDto dto = new BookDto();
 				dto.setId(resultSet.getString("id"));
 				dto.setTitle(resultSet.getString("Title"));
 				dto.setAuthor(resultSet.getString("Author"));
@@ -74,21 +74,21 @@ public class MySQLTester {
 		System.out.println(list);
 		linkedList.display();
 
-		Map<BookCategoryEnum, List<Book>> newMap = new HashMap<BookCategoryEnum, List<Book>>();
-		newMap = list.stream().collect(Collectors.groupingBy(Book::getCategory));
+		Map<BookCategoryEnum, List<BookDto>> newMap = new HashMap<BookCategoryEnum, List<BookDto>>();
+		newMap = list.stream().collect(Collectors.groupingBy(BookDto::getCategory));
 //				.collect(Collectors.toList());
 		System.out.println("original list");
 		System.out.println(list);
 		System.out.println("streamed map");
 		System.out.println(newMap);
 
-		for (Entry<BookCategoryEnum, List<Book>> entry : newMap.entrySet()) {
+		for (Entry<BookCategoryEnum, List<BookDto>> entry : newMap.entrySet()) {
 			System.out.println("key: " + entry.getKey() + " value: " + entry.getValue());
 		}
 		
 		BookCategoryEnum key = BookCategoryEnum.fromInt(2);
 		
-		List<Book> entry =  newMap.get(key);
+		List<BookDto> entry =  newMap.get(key);
 
 		System.out.println(entry);
 
@@ -107,7 +107,7 @@ public class MySQLTester {
 			ps.setString(1, "%" + search + "%");
 			resultSet = ps.executeQuery();
 			while (resultSet.next()) {
-				Book dto = new Book();
+				BookDto dto = new BookDto();
 				dto.setId(resultSet.getString("id"));
 				dto.setTitle(resultSet.getString("Title"));
 				dto.setAuthor(resultSet.getString("Author"));
@@ -142,10 +142,10 @@ public class MySQLTester {
 		
 	}
 
-	private void updateTest(List<Book> list) {
+	private void updateTest(List<BookDto> list) {
 		//      String sql = "UPDATE Registration " +
         // "SET age = 30 WHERE id in (100, 101)";
-		for(Book entry:list) {
+		for(BookDto entry:list) {
 			
 			Connection connect = null;
 			PreparedStatement ps = null;

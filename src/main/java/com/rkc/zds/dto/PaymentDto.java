@@ -2,18 +2,18 @@ package com.rkc.zds.dto;
 
 import java.util.Date;
 
-public class Payment {
+public class PaymentDto {
 	
 	private int id;
 	private int userId;
 	private double amount;
 	private Date paymentDate;
 	
-	public Payment() {
+	public PaymentDto() {
 		
 	}
 	
-	public Payment(int userId, double amount, Date paymentDate) {
+	public PaymentDto(int userId, double amount, Date paymentDate) {
 		this.userId = userId;
 		this.amount = amount;
 		this.paymentDate = paymentDate;

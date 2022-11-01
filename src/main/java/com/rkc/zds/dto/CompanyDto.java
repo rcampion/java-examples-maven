@@ -3,18 +3,18 @@ package com.rkc.zds.dto;
 import org.springframework.stereotype.Component;
 
 @Component
-public class Company {
-    private Address address;
+public class CompanyDto {
+    private AddressDto address;
 
-    public Company(Address address) {
+    public CompanyDto(AddressDto address) {
         this.address = address;
     }
 
-	public Address getAddress() {
+	public AddressDto getAddress() {
 		return address;
 	}
 
-	public void setAddress(Address address) {
+	public void setAddress(AddressDto address) {
 		this.address = address;
 	}
     

@@ -8,15 +8,15 @@ public class BookTester {
 
 	public static void main(String[] args) {
 		//'1', 'Clean Code', 'Robert Cecil Martin'
-		Book book1 = new Book("1","2Clean Code","Robert Cecil Martin");
+		BookDto book1 = new BookDto("1","2Clean Code","Robert Cecil Martin", 1);
 		
 		//'2', 'Code Complete', 'Steve McConnell'
-		Book book2 = new Book("2","1Code Complete","Steve McConnell");
+		BookDto book2 = new BookDto("2","1Code Complete","Steve McConnell", 2);
 		
 		//'3', 'Refactoring', 'Martin Fowler, Kent Beck'
-		Book book3 = new Book("3","3Refactoring","Martin Fowler, Kent Beck");
+		BookDto book3 = new BookDto("3","3Refactoring","Martin Fowler, Kent Beck", 1);
 
-		List<Book> list = new ArrayList<Book>();
+		List<BookDto> list = new ArrayList<BookDto>();
 		
 		list.add(book1);
 		list.add(book2);

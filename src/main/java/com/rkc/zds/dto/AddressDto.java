@@ -1,10 +1,10 @@
 package com.rkc.zds.dto;
 
-public class Address {
+public class AddressDto {
     private String street;
     private int number;
 
-    public Address(String street, int number) {
+    public AddressDto(String street, int number) {
         this.street = street;
         this.number = number;
     }

@@ -25,7 +25,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import com.rkc.zds.dto.Address;
+import com.rkc.zds.dto.AddressDto;
 
 @Configuration
 @ComponentScan(basePackages = { "com.rkc.zds" }, excludeFilters = { @ComponentScan.Filter(value = Controller.class, type = FilterType.ANNOTATION) })
@@ -38,8 +38,8 @@ transactionManagerRef = "transactionManager"
 public class AppConfig {
 	
     @Bean
-    public Address getAddress() {
-        return new Address("High Street", 1000);
+    public AddressDto getAddress() {
+        return new AddressDto("High Street", 1000);
     }
 
 	@Bean
