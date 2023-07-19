@@ -94,7 +94,7 @@ public class PersistenceBooksConfiguration {
 		//properties.put("hibernate.show_sql", Boolean.TRUE.toString());
 		properties.put("hibernate.show_sql", Boolean.FALSE.toString());		
 		properties.put("hibernate.query.jpaql_strict_compliance", Boolean.FALSE.toString());
-		properties.put("driverClassName","com.mysql.jdbc.Driver");
+		properties.put("driverClassName","com.mysql.cj.jdbc.Driver");
 		properties.put("url","jdbc:mysql://localhost:3306/books?createDatabaseIfNotExist=true&serverTimezone=UTC&useLegacyDatetimeCode=false");
 		properties.put("userName" ,"book_user");
 		properties.put("password" ,"ChangeIt");
