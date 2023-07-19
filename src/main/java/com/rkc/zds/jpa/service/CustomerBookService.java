@@ -4,23 +4,23 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.rkc.zds.jpa.CustomerBookDTO;
+import com.rkc.zds.jpa.entity.CustomerBookEntity;
 
 @Service
 public interface CustomerBookService {
 
-    Page<CustomerBookDTO> findCustomerBooks(Pageable pageable);
+    Page<CustomerBookEntity> findCustomerBooks(Pageable pageable);
 
-    CustomerBookDTO getCustomerBook(int id);
+    CustomerBookEntity getCustomerBook(int id);
     
-    CustomerBookDTO saveCustomerBook(CustomerBookDTO CustomerBook);
+    CustomerBookEntity saveCustomerBook(CustomerBookEntity customerBook);
     
-    void updateCustomerBook(CustomerBookDTO CustomerBook);
+    void updateCustomerBook(CustomerBookEntity customerBook);
 
 	void deleteCustomerBook(int id);
 
-	Page<CustomerBookDTO> findCustomerBooksByCustomerId(Pageable pageable, int id);
+	Page<CustomerBookEntity> findCustomerBooksByCustomerId(Pageable pageable, int id);
 
-	Page<CustomerBookDTO> findCustomerBooksByBookId(Pageable pageable, int id);
+	Page<CustomerBookEntity> findCustomerBooksByBookId(Pageable pageable, int id);
     
 }

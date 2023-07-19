@@ -18,60 +18,55 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import com.rkc.zds.jpa.entity.BookEntity;
-import com.rkc.zds.jpa.entity.CustomerBookEntity;
-import com.rkc.zds.jpa.repository.BookRepository;
-import com.rkc.zds.jpa.repository.CustomerBookRepository;
-import com.rkc.zds.jpa.service.BookService;
+import com.rkc.zds.jpa.entity.ShippingMethodEntity;
+import com.rkc.zds.jpa.repository.ShippingMethodRepository;
+import com.rkc.zds.jpa.service.ShippingMethodService;
 
 @Service
-public class BookServiceImpl implements BookService {
+public class ShippingMethodServiceImpl implements ShippingMethodService {
 	
-	private static final Logger logger = LoggerFactory.getLogger(BookServiceImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(ShippingMethodServiceImpl.class);
 	
 	@Autowired
 	@Qualifier("booksEntityManager")
 	private EntityManagerFactory entityManagerFactory;
 
 	@Autowired
-	private BookRepository bookRepo;
-	
-	@Autowired
-	private CustomerBookRepository customerBookRepo;
+	private ShippingMethodRepository shippingMethodRepo;
 	
 	@Override
-	public Page<BookEntity> findBooks(Pageable pageable) {
-		return bookRepo.findAll(pageable);
+	public Page<ShippingMethodEntity> findShippingMethods(Pageable pageable) {
+		return shippingMethodRepo.findAll(pageable);
 	}
 
 	@Override
-	public BookEntity getBook(Integer id) {
+	public ShippingMethodEntity getShippingMethod(Integer id) {
 
-		Optional<BookEntity> bookDTO = bookRepo.findById(id);
-		BookEntity book = null;
+		Optional<ShippingMethodEntity> shippingMethodDTO = shippingMethodRepo.findById(id);
+		ShippingMethodEntity shippingMethod = null;
 		
-		if(bookDTO.isPresent()) {
-			book = bookDTO.get();
+		if(shippingMethodDTO.isPresent()) {
+			shippingMethod = shippingMethodDTO.get();
 		}
 		
-		return book;
+		return shippingMethod;
 	}
 
 	@Override
-	public BookEntity saveBook(BookEntity book) {
+	public ShippingMethodEntity saveShippingMethod(ShippingMethodEntity shippingMethod) {
 
 		EntityManagerFactory emf = getEntityManagerFactory();
 		EntityManager em = emf.createEntityManager();
 
 		EntityTransaction tx = null;
 		
-		BookEntity result = null;
+		ShippingMethodEntity result = null;
 
 		try {
 			tx = em.getTransaction();
 			tx.begin();
 
-			result = bookRepo.save(book);
+			result = shippingMethodRepo.save(shippingMethod);
 
 			tx.commit();
 		} catch (Exception e) {
@@ -83,7 +78,7 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public void updateBook(BookEntity book) {
+	public void updateShippingMethod(ShippingMethodEntity shippingMethod) {
 
 		EntityManagerFactory emf = getEntityManagerFactory();
 		EntityManager em = emf.createEntityManager();
@@ -94,7 +89,7 @@ public class BookServiceImpl implements BookService {
 			tx = em.getTransaction();
 			tx.begin();
 			
-			bookRepo.saveAndFlush(book);
+			shippingMethodRepo.saveAndFlush(shippingMethod);
 
 			tx.commit();
 		} catch (Exception e) {
@@ -104,7 +99,7 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public void deleteBook(int id) {
+	public void deleteShippingMethod(int id) {
 		EntityManagerFactory emf = getEntityManagerFactory();
 		EntityManager em = emf.createEntityManager();
 
@@ -114,7 +109,7 @@ public class BookServiceImpl implements BookService {
 			tx = em.getTransaction();
 			tx.begin();
 
-			bookRepo.deleteById(id);
+			shippingMethodRepo.deleteById(id);
 
 			tx.commit();
 		} catch (Exception e) {
@@ -123,39 +118,37 @@ public class BookServiceImpl implements BookService {
 		}
 		
 	}
-/*
-	@Override
-	public BookEntity findBook(int id) {
-		Optional<BookEntity> book = bookRepo.findByBookId(id);
 
-		return book.get();
+/*	
+	@Override
+	public ShippingMethodEntity findShippingMethod(String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public Page<ShippingMethodEntity> searchShippingMethods(String name) {
+		final PageRequest pageRequest = PageRequest.of(0, 10, sortByNameASC());
+		return shippingMethodRepo.findByTitleLike(pageRequest, "%" + name + "%");
 	}
 */
 	
 	@Override
-	public Page<BookEntity> searchBooks(String name) {
-		final PageRequest pageRequest = PageRequest.of(0, 10, sortByNameASC());
+	public Page<ShippingMethodEntity> searchShippingMethods(Pageable pageable, Specification<ShippingMethodEntity> spec) {
 
-		return bookRepo.findByTitleLike(pageRequest, "%" + name + "%");
-
-	}
-
-	@Override
-	public Page<BookEntity> searchBooks(Pageable pageable, Specification<BookEntity> spec) {
-
-		return bookRepo.findAll(spec, pageable);
+		return shippingMethodRepo.findAll(spec, pageable);
 
 	}
 
 	@Override
-	public BookEntity getBook(int id) {
-		Optional<BookEntity> book = bookRepo.findById(id);
+	public ShippingMethodEntity getShippingMethod(int id) {
+		Optional<ShippingMethodEntity> shippingMethod = shippingMethodRepo.findById(id);
 
-		return book.get();
+		return shippingMethod.get();
 	}
 	
 	private Sort sortByNameASC() {
-		return Sort.by(Sort.Direction.ASC, "bookName");
+		return Sort.by(Sort.Direction.ASC, "Method_id");
 	}
 	
 	@Override

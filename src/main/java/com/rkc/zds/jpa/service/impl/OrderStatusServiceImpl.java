@@ -18,60 +18,55 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import com.rkc.zds.jpa.entity.BookEntity;
-import com.rkc.zds.jpa.entity.CustomerBookEntity;
-import com.rkc.zds.jpa.repository.BookRepository;
-import com.rkc.zds.jpa.repository.CustomerBookRepository;
-import com.rkc.zds.jpa.service.BookService;
+import com.rkc.zds.jpa.entity.OrderStatusEntity;
+import com.rkc.zds.jpa.repository.OrderStatusRepository;
+import com.rkc.zds.jpa.service.OrderStatusService;
 
 @Service
-public class BookServiceImpl implements BookService {
+public class OrderStatusServiceImpl implements OrderStatusService {
 	
-	private static final Logger logger = LoggerFactory.getLogger(BookServiceImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(OrderStatusServiceImpl.class);
 	
 	@Autowired
 	@Qualifier("booksEntityManager")
 	private EntityManagerFactory entityManagerFactory;
 
 	@Autowired
-	private BookRepository bookRepo;
-	
-	@Autowired
-	private CustomerBookRepository customerBookRepo;
+	private OrderStatusRepository orderStatusRepo;
 	
 	@Override
-	public Page<BookEntity> findBooks(Pageable pageable) {
-		return bookRepo.findAll(pageable);
+	public Page<OrderStatusEntity> findOrderStatus(Pageable pageable) {
+		return orderStatusRepo.findAll(pageable);
 	}
 
 	@Override
-	public BookEntity getBook(Integer id) {
+	public OrderStatusEntity getOrderStatus(Integer id) {
 
-		Optional<BookEntity> bookDTO = bookRepo.findById(id);
-		BookEntity book = null;
+		Optional<OrderStatusEntity> orderStatusDTO = orderStatusRepo.findById(id);
+		OrderStatusEntity orderStatus = null;
 		
-		if(bookDTO.isPresent()) {
-			book = bookDTO.get();
+		if(orderStatusDTO.isPresent()) {
+			orderStatus = orderStatusDTO.get();
 		}
 		
-		return book;
+		return orderStatus;
 	}
 
 	@Override
-	public BookEntity saveBook(BookEntity book) {
+	public OrderStatusEntity saveOrderStatus(OrderStatusEntity orderStatus) {
 
 		EntityManagerFactory emf = getEntityManagerFactory();
 		EntityManager em = emf.createEntityManager();
 
 		EntityTransaction tx = null;
 		
-		BookEntity result = null;
+		OrderStatusEntity result = null;
 
 		try {
 			tx = em.getTransaction();
 			tx.begin();
 
-			result = bookRepo.save(book);
+			result = orderStatusRepo.save(orderStatus);
 
 			tx.commit();
 		} catch (Exception e) {
@@ -83,7 +78,7 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public void updateBook(BookEntity book) {
+	public void updateOrderStatus(OrderStatusEntity orderStatus) {
 
 		EntityManagerFactory emf = getEntityManagerFactory();
 		EntityManager em = emf.createEntityManager();
@@ -94,7 +89,7 @@ public class BookServiceImpl implements BookService {
 			tx = em.getTransaction();
 			tx.begin();
 			
-			bookRepo.saveAndFlush(book);
+			orderStatusRepo.saveAndFlush(orderStatus);
 
 			tx.commit();
 		} catch (Exception e) {
@@ -104,7 +99,7 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public void deleteBook(int id) {
+	public void deleteOrderStatus(int id) {
 		EntityManagerFactory emf = getEntityManagerFactory();
 		EntityManager em = emf.createEntityManager();
 
@@ -114,7 +109,7 @@ public class BookServiceImpl implements BookService {
 			tx = em.getTransaction();
 			tx.begin();
 
-			bookRepo.deleteById(id);
+			orderStatusRepo.deleteById(id);
 
 			tx.commit();
 		} catch (Exception e) {
@@ -123,39 +118,39 @@ public class BookServiceImpl implements BookService {
 		}
 		
 	}
+
 /*
 	@Override
-	public BookEntity findBook(int id) {
-		Optional<BookEntity> book = bookRepo.findByBookId(id);
+	public OrderStatusEntity findOrderStatus(String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public Page<OrderStatusEntity> searchOrderStatuss(String name) {
+		final PageRequest pageRequest = PageRequest.of(0, 10, sortByNameASC());
 
-		return book.get();
+		return orderStatusRepo.findByTitleLike(pageRequest, "%" + name + "%");
+
 	}
 */
 	
 	@Override
-	public Page<BookEntity> searchBooks(String name) {
-		final PageRequest pageRequest = PageRequest.of(0, 10, sortByNameASC());
+	public Page<OrderStatusEntity> searchOrderStatuss(Pageable pageable, Specification<OrderStatusEntity> spec) {
 
-		return bookRepo.findByTitleLike(pageRequest, "%" + name + "%");
-
-	}
-
-	@Override
-	public Page<BookEntity> searchBooks(Pageable pageable, Specification<BookEntity> spec) {
-
-		return bookRepo.findAll(spec, pageable);
+		return orderStatusRepo.findAll(spec, pageable);
 
 	}
 
 	@Override
-	public BookEntity getBook(int id) {
-		Optional<BookEntity> book = bookRepo.findById(id);
+	public OrderStatusEntity getOrderStatus(int id) {
+		Optional<OrderStatusEntity> orderStatus = orderStatusRepo.findById(id);
 
-		return book.get();
+		return orderStatus.get();
 	}
 	
 	private Sort sortByNameASC() {
-		return Sort.by(Sort.Direction.ASC, "bookName");
+		return Sort.by(Sort.Direction.ASC, "status_id");
 	}
 	
 	@Override

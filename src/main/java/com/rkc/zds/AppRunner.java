@@ -11,9 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import com.rkc.zds.jpa.BookDTO;
-import com.rkc.zds.jpa.CustomerBookDTO;
-import com.rkc.zds.jpa.CustomerDTO;
+import com.rkc.zds.jpa.entity.BookEntity;
+import com.rkc.zds.jpa.entity.CustomerBookEntity;
+import com.rkc.zds.jpa.entity.CustomerEntity;
 import com.rkc.zds.jpa.service.BookService;
 import com.rkc.zds.jpa.service.CustomerBookService;
 import com.rkc.zds.jpa.service.CustomerService;
@@ -83,7 +83,7 @@ public class AppRunner implements CommandLineRunner {
 	}
 
 	private void populateBooks() {
-		BookDTO book1 = new BookDTO();
+		BookEntity book1 = new BookEntity();
 		
 		book1.setTitle("Clean Code");
 		book1.setAuthor("Robert Cecil Martin");
@@ -91,7 +91,7 @@ public class AppRunner implements CommandLineRunner {
 		
 		book1 = bookService.saveBook(book1);
 		
-		BookDTO book2 = new BookDTO();
+		BookEntity book2 = new BookEntity();
 		
 		book2.setTitle("Code Complete");
 		book2.setAuthor("Steve McConnell");
@@ -99,7 +99,7 @@ public class AppRunner implements CommandLineRunner {
 		
 		book2 = bookService.saveBook(book2);
 		
-		BookDTO book3 = new BookDTO();
+		BookEntity book3 = new BookEntity();
 		
 		book3.setTitle("Refactoring");
 		book3.setAuthor("Martin Fowler, Kent Beck");
@@ -107,43 +107,45 @@ public class AppRunner implements CommandLineRunner {
 		
 		book3 = bookService.saveBook(book3);
 		
-		CustomerDTO customer1 = new CustomerDTO();
+		CustomerEntity customer1 = new CustomerEntity();
 		
-		customer1.setName("Richard Campion");
+		customer1.setFirstName("Richard");
+		customer1.setLastName("Campion");
 		
 		customer1 = customerService.saveCustomer(customer1);
 		
-		CustomerDTO customer2 = new CustomerDTO();
+		CustomerEntity customer2 = new CustomerEntity();
 		
-		customer2.setName("Paul Fredette");
+		customer2.setFirstName("Paul");
+		customer1.setLastName("Fredette");
 		
 		customer2 = customerService.saveCustomer(customer2);
 		
-		CustomerBookDTO customerBook1 = new CustomerBookDTO();
+		CustomerBookEntity customerBook1 = new CustomerBookEntity();
 		
-		customerBook1.setBookId(book1.getId());
-		customerBook1.setCustomerId(customer1.getId());
+		customerBook1.setBookId(book1.getBookId());
+		customerBook1.setCustomerId(customer1.getCustomerId());
 		
 		customerBookService.saveCustomerBook(customerBook1);
 		
-		CustomerBookDTO customerBook2 = new CustomerBookDTO();
+		CustomerBookEntity customerBook2 = new CustomerBookEntity();
 		
-		customerBook2.setBookId(book2.getId());
-		customerBook2.setCustomerId(customer1.getId());
+		customerBook2.setBookId(book2.getBookId());
+		customerBook2.setCustomerId(customer1.getCustomerId());
 		
 		customerBookService.saveCustomerBook(customerBook2);
 		
-		CustomerBookDTO customerBook3 = new CustomerBookDTO();
+		CustomerBookEntity customerBook3 = new CustomerBookEntity();
 		
-		customerBook3.setBookId(book1.getId());
-		customerBook3.setCustomerId(customer2.getId());
+		customerBook3.setBookId(book1.getBookId());
+		customerBook3.setCustomerId(customer2.getCustomerId());
 		
 		customerBookService.saveCustomerBook(customerBook3);
 		
-		CustomerBookDTO customerBook4 = new CustomerBookDTO();
+		CustomerBookEntity customerBook4 = new CustomerBookEntity();
 		
-		customerBook4.setBookId(book3.getId());
-		customerBook4.setCustomerId(customer2.getId());
+		customerBook4.setBookId(book3.getBookId());
+		customerBook4.setCustomerId(customer2.getCustomerId());
 		
 		customerBookService.saveCustomerBook(customerBook4);
 					

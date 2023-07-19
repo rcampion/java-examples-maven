@@ -18,60 +18,55 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import com.rkc.zds.jpa.entity.BookEntity;
-import com.rkc.zds.jpa.entity.CustomerBookEntity;
-import com.rkc.zds.jpa.repository.BookRepository;
-import com.rkc.zds.jpa.repository.CustomerBookRepository;
-import com.rkc.zds.jpa.service.BookService;
+import com.rkc.zds.jpa.entity.CountryEntity;
+import com.rkc.zds.jpa.repository.CountryRepository;
+import com.rkc.zds.jpa.service.CountryService;
 
 @Service
-public class BookServiceImpl implements BookService {
+public class CountryServiceImpl implements CountryService {
 	
-	private static final Logger logger = LoggerFactory.getLogger(BookServiceImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(CountryServiceImpl.class);
 	
 	@Autowired
 	@Qualifier("booksEntityManager")
 	private EntityManagerFactory entityManagerFactory;
 
 	@Autowired
-	private BookRepository bookRepo;
-	
-	@Autowired
-	private CustomerBookRepository customerBookRepo;
+	private CountryRepository countryRepo;
 	
 	@Override
-	public Page<BookEntity> findBooks(Pageable pageable) {
-		return bookRepo.findAll(pageable);
+	public Page<CountryEntity> findCountries(Pageable pageable) {
+		return countryRepo.findAll(pageable);
 	}
 
 	@Override
-	public BookEntity getBook(Integer id) {
+	public CountryEntity getCountry(Integer id) {
 
-		Optional<BookEntity> bookDTO = bookRepo.findById(id);
-		BookEntity book = null;
+		Optional<CountryEntity> countryDTO = countryRepo.findById(id);
+		CountryEntity country = null;
 		
-		if(bookDTO.isPresent()) {
-			book = bookDTO.get();
+		if(countryDTO.isPresent()) {
+			country = countryDTO.get();
 		}
 		
-		return book;
+		return country;
 	}
 
 	@Override
-	public BookEntity saveBook(BookEntity book) {
+	public CountryEntity saveCountry(CountryEntity country) {
 
 		EntityManagerFactory emf = getEntityManagerFactory();
 		EntityManager em = emf.createEntityManager();
 
 		EntityTransaction tx = null;
 		
-		BookEntity result = null;
+		CountryEntity result = null;
 
 		try {
 			tx = em.getTransaction();
 			tx.begin();
 
-			result = bookRepo.save(book);
+			result = countryRepo.save(country);
 
 			tx.commit();
 		} catch (Exception e) {
@@ -83,7 +78,7 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public void updateBook(BookEntity book) {
+	public void updateCountry(CountryEntity country) {
 
 		EntityManagerFactory emf = getEntityManagerFactory();
 		EntityManager em = emf.createEntityManager();
@@ -94,7 +89,7 @@ public class BookServiceImpl implements BookService {
 			tx = em.getTransaction();
 			tx.begin();
 			
-			bookRepo.saveAndFlush(book);
+			countryRepo.saveAndFlush(country);
 
 			tx.commit();
 		} catch (Exception e) {
@@ -104,7 +99,7 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public void deleteBook(int id) {
+	public void deleteCountry(int id) {
 		EntityManagerFactory emf = getEntityManagerFactory();
 		EntityManager em = emf.createEntityManager();
 
@@ -114,7 +109,7 @@ public class BookServiceImpl implements BookService {
 			tx = em.getTransaction();
 			tx.begin();
 
-			bookRepo.deleteById(id);
+			countryRepo.deleteById(id);
 
 			tx.commit();
 		} catch (Exception e) {
@@ -123,39 +118,38 @@ public class BookServiceImpl implements BookService {
 		}
 		
 	}
-/*
-	@Override
-	public BookEntity findBook(int id) {
-		Optional<BookEntity> book = bookRepo.findByBookId(id);
 
-		return book.get();
+/*	
+	@Override
+	public CountryEntity findCountry(String name) {
+		// TODO Auto-generated method stub
+		return null;
 	}
-*/
 	
 	@Override
-	public Page<BookEntity> searchBooks(String name) {
+	public Page<CountryEntity> searchCountrys(String name) {
 		final PageRequest pageRequest = PageRequest.of(0, 10, sortByNameASC());
 
-		return bookRepo.findByTitleLike(pageRequest, "%" + name + "%");
+		return countryRepo.findByTitleLike(pageRequest, "%" + name + "%");
+
+	}
+*/
+	@Override
+	public Page<CountryEntity> searchCountries(Pageable pageable, Specification<CountryEntity> spec) {
+
+		return countryRepo.findAll(spec, pageable);
 
 	}
 
 	@Override
-	public Page<BookEntity> searchBooks(Pageable pageable, Specification<BookEntity> spec) {
+	public CountryEntity getCountry(int id) {
+		Optional<CountryEntity> country = countryRepo.findById(id);
 
-		return bookRepo.findAll(spec, pageable);
-
-	}
-
-	@Override
-	public BookEntity getBook(int id) {
-		Optional<BookEntity> book = bookRepo.findById(id);
-
-		return book.get();
+		return country.get();
 	}
 	
 	private Sort sortByNameASC() {
-		return Sort.by(Sort.Direction.ASC, "bookName");
+		return Sort.by(Sort.Direction.ASC, "country_id");
 	}
 	
 	@Override

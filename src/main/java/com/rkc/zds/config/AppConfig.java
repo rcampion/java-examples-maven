@@ -42,21 +42,7 @@ public class AppConfig {
         return new AddressDto("High Street", 1000);
     }
 
-	@Bean
-	public DataSource dataSource() {
-		DriverManagerDataSource dataSource = new DriverManagerDataSource();
-
-		// dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-		dataSource.setUsername("book_user");
-		dataSource.setPassword("ChangeIt");
-		
-		// dataSource.setUrl("jdbc:mysql://localhost:3306/auth?createDatabaseIfNotExist=true");
-		dataSource.setUrl("jdbc:mysql://localhost:3306/books?createDatabaseIfNotExist=true&serverTimezone=UTC&useLegacyDatetimeCode=false");
-
-		return dataSource;
-	}    
-
+ 
 	@Bean(name = "booksEntityManager")
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource, JpaVendorAdapter jpaVendorAdapter) {
         LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
@@ -69,14 +55,14 @@ public class AppConfig {
 		Properties jpaProperties = new Properties();
 		jpaProperties.put("hibernate.dialect", MySQL55Dialect.class.getName());
 		//jpaProperties.put("hibernate.show_sql", Boolean.TRUE.toString());
-		jpaProperties.put("hibernate.show_sql", Boolean.FALSE.toString());
-		
+		jpaProperties.put("hibernate.show_sql", Boolean.FALSE.toString());		
 		jpaProperties.put("hibernate.query.jpaql_strict_compliance", Boolean.FALSE.toString());
 		jpaProperties.put("hibernate.hbm2ddl.auto", "create");
 		jpaProperties.put("driverClassName","com.mysql.jdbc.Driver");
 		jpaProperties.put("url","jdbc:mysql://localhost:3306/books?createDatabaseIfNotExist=true&serverTimezone=UTC&useLegacyDatetimeCode=false");
 		jpaProperties.put("userName" ,"book_user");
 		jpaProperties.put("password" ,"ChangeIt");
+		
 		factoryBean.setJpaProperties(jpaProperties);
 
         return factoryBean;
