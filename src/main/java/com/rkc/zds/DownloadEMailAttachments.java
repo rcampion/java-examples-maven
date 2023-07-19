@@ -91,7 +91,7 @@ public class DownloadEMailAttachments {
 		Session session = Session.getDefaultInstance(props, new Authenticator() {
 		    @Override
 		    protected PasswordAuthentication getPasswordAuthentication() {
-		        return new PasswordAuthentication(userName, "ArcyAdmin8246+");
+		        return new PasswordAuthentication(userName, "Admin8246+");
 
 		    }
 		});
@@ -134,7 +134,7 @@ public class DownloadEMailAttachments {
 		Session session = Session.getDefaultInstance(props, new Authenticator() {
 		    @Override
 		    protected PasswordAuthentication getPasswordAuthentication() {
-		        return new PasswordAuthentication("richard.campion@zdslogic.com", "ArcyAdmin8246+");
+		        return new PasswordAuthentication("richard.campion@zdslogic.com", "Admin8246+");
 
 		    }
 		});
@@ -225,7 +225,7 @@ public class DownloadEMailAttachments {
 		String port = "110";
 		//String userName = "richard.campion@zdslogic.com";
 		String userName = "richard.campion";
-		String password = "ArcyAdmin8246+";
+		String password = "Admin8246+";
 
 		String saveDirectory = "/home/www/share/nginx/servers/www/www.zdslogic.com/html/data/files/uploads/" + userName;
 

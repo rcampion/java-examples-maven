@@ -37,7 +37,7 @@ public class ReadMultipartMail {
 
 		String host = "mail.zdslogic.com";
 		String username = "richard.campion";
-		String password = "ArcyAdmin8246+";
+		String password = "Admin8246+";
 
 		System.setProperty("mail.mime.decodeparameters", "true");
 
